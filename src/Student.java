@@ -14,4 +14,5 @@ public class Student extends Admin {
     public String welcomeMessage(){
         return "Welcome Student";
     }
+
 }
