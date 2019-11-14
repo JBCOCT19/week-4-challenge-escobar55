@@ -8,6 +8,7 @@ public class Main {
     private static ArrayList<Faculty> facultyList = new ArrayList<>();
     private static ArrayList<Class> classList = new ArrayList<>();
     private static ArrayList<Enrollments> enrollmentList = new ArrayList<>();
+    private static ArrayList<Enrollments> facultyHireList = new ArrayList<>();
 
     public static void main(String[] args) {
        Admin adminUser = new Admin(100L, "Marcus", "admin1@email.com", "password");
@@ -43,12 +44,26 @@ public class Main {
         studentEnrollment2.setStudentId(201L);
         Collections.addAll(enrollmentList, studentEnrollment1, studentEnrollment2);
 
+        //Add some enrollments (Faculty-Class)
+        Enrollments facultyHire1 = new Enrollments();
+        facultyHire1.setId(600L);
+        facultyHire1.setClassId(400L);
+        facultyHire1.setFacultyId(300L);
+
+        Enrollments facultyHire2 = new Enrollments();
+        facultyHire2.setId(601L);
+        facultyHire2.setClassId(401L);
+        facultyHire2.setFacultyId(301L);
+        Collections.addAll(facultyHireList, facultyHire1, facultyHire2);
+
+
         //*******************TEST!!!***8***8
         System.out.println("BEFORE ADDING ");
         //print();
         //printF();
         //printC();
-        printEnrollment();
+        //printEnrollment();
+        printHiring();
         //****************************************
         Scanner key = new Scanner(System.in);
         System.out.println("Welcome to Montgomery's School System  ");
@@ -92,6 +107,9 @@ public class Main {
         }
         if(input == 7){
             enrollStudent();
+        }
+        if(input == 8){
+            hireFaculty();
         }
 
 
@@ -147,6 +165,24 @@ public class Main {
             }
         }
 
+    }
+
+    public static void printHiring(){
+        for(Enrollments en: facultyHireList){
+            for(Class c: classList){
+                if(en.getClassId() == c.getId()){
+                    System.out.println(c.getName());
+                    break;
+                }
+            }
+            for(Faculty f: facultyList){
+                if(en.getFacultyId() == f.getId()){
+                    System.out.println(f.getName());
+                    break;
+                }
+            }
+
+        }
     }
 
     //***************
@@ -363,6 +399,27 @@ public class Main {
         }
         System.out.println("enrollments after adding: ");
         printEnrollment();
+    }
+
+    public static void hireFaculty(){
+        Scanner key = new Scanner(System.in);
+        System.out.println("How many Faculty members would you like to hire? ");
+        int num = key.nextInt();
+        int count = 0;
+        while(count < num){
+            Enrollments facultyHires = new Enrollments();
+            System.out.println("Please enter a new ID for the hiring record: ");
+            facultyHires.setId(key.nextLong());
+            System.out.println("Please enter the ID of the faculty that you wish to hire: ");
+            facultyHires.setFacultyId(key.nextLong());
+            System.out.println("Please enter the ID of the class where you wish to hire the faculty member: ");
+            facultyHires.setClassId(key.nextLong());
+            facultyHireList.add(facultyHires);
+            System.out.println("Faculty hired!");
+            count++;
+        }
+        System.out.println("hiring list after adding: ");
+        printHiring();
     }
 
 
