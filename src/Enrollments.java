@@ -3,15 +3,17 @@ public class Enrollments {
     private long studentId;
     private long facultyId;
     private long classId;
+    private String date;
 
     public Enrollments() {
     }
 
-    public Enrollments(long id, long studentId, long facultyId, long classId) {
+    public Enrollments(long id, long studentId, long facultyId, long classId, String date) {
         this.id = id;
         this.studentId = studentId;
         this.facultyId = facultyId;
         this.classId = classId;
+        this.date = date;
     }
 
     public long getId() {
@@ -44,5 +46,13 @@ public class Enrollments {
 
     public void setClassId(long classId) {
         this.classId = classId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

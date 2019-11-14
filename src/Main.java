@@ -37,11 +37,13 @@ public class Main {
         studentEnrollment1.setId(500L);
         studentEnrollment1.setClassId(400L);
         studentEnrollment1.setStudentId(200L);
+        studentEnrollment1.setDate("Nov/12/2018");
 
         Enrollments studentEnrollment2 = new Enrollments();
         studentEnrollment2.setId(501L);
         studentEnrollment2.setClassId(401L);
         studentEnrollment2.setStudentId(201L);
+        studentEnrollment2.setDate("Nov/10/2019");
         Collections.addAll(enrollmentList, studentEnrollment1, studentEnrollment2);
 
         //Add some enrollments-hiring (Faculty-Class)
@@ -78,7 +80,7 @@ public class Main {
         System.out.println("Please choose between the following options: ");
         System.out.println(" 1 - Add Student \n 2 - Add Faculty \n 3 - Edit Student \n 4 - Edit Faculty \n 5 - Add Class");
         System.out.println(" 6 - Edit Class \n 7 - Enroll Student \n 8 - Hire a Faculty \n 9 - Viw All Information");
-        System.out.println("Enter 10 to quit ");
+        System.out.println(" 10 - to quit ");
         int input = key.nextInt();
         if(input == 1){
             addStudent();
@@ -162,6 +164,7 @@ public class Main {
             for(Class c: classList){
                 if(en.getClassId() == c.getId()){
                     System.out.println("Class Name: " + c.getName());
+                    System.out.println("Enrollment date: " + en.getDate());
                     break;
                 }
             }
@@ -396,6 +399,9 @@ public class Main {
             enrollments.setStudentId(key.nextLong());
             System.out.println("Please enter the ID of the class where you wish to enroll the student: ");
             enrollments.setClassId(key.nextLong());
+            key.nextLine();
+            System.out.println("Please enter today's date (e.g., Nov/15/2019): ");
+            enrollments.setDate(key.nextLine());
             enrollmentList.add(enrollments);
             System.out.println("Student enrolled!");
             count++;
