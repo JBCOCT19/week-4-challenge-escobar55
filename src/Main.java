@@ -7,6 +7,7 @@ public class Main {
     private static ArrayList<Student> studentList = new ArrayList<>();
     private static ArrayList<Faculty> facultyList = new ArrayList<>();
     private static ArrayList<Class> classList = new ArrayList<>();
+    private static ArrayList<Enrollments> enrollmentList = new ArrayList<>();
 
     public static void main(String[] args) {
        Admin adminUser = new Admin(100L, "Marcus", "admin1@email.com", "password");
@@ -30,11 +31,24 @@ public class Main {
         Class class3 = new Class(402L, "Oracle SQL", "Learn SQL queries, tables and relational databases");
         Collections.addAll(classList, class1, class2, class3);
 
+        //add some enrollments (Student-Class)
+        Enrollments studentEnrollment1 = new Enrollments();
+        studentEnrollment1.setId(500L);
+        studentEnrollment1.setClassId(400L);
+        studentEnrollment1.setStudentId(200L);
+
+        Enrollments studentEnrollment2 = new Enrollments();
+        studentEnrollment2.setId(501L);
+        studentEnrollment2.setClassId(401L);
+        studentEnrollment2.setStudentId(201L);
+        Collections.addAll(enrollmentList, studentEnrollment1, studentEnrollment2);
+
         //*******************TEST!!!***8***8
         System.out.println("BEFORE ADDING ");
         //print();
         //printF();
-        printC();
+        //printC();
+        printEnrollment();
         //****************************************
         Scanner key = new Scanner(System.in);
         System.out.println("Welcome to Montgomery's School System  ");
@@ -76,6 +90,10 @@ public class Main {
         if(input == 6){
             editClass();
         }
+        if(input == 7){
+            enrollStudent();
+        }
+
 
 
 
@@ -109,6 +127,24 @@ public class Main {
             System.out.println("C Name: " + c.getName());
             System.out.println("C DES: " + c.getDescription());
 
+        }
+
+    }
+
+    public static void printEnrollment(){
+        for(Enrollments en: enrollmentList){
+            for(Class c: classList){
+                if(en.getClassId() == c.getId()){
+                    System.out.println(c.getName());
+                    break;
+                }
+            }
+            for(Student s: studentList){
+                if(en.getStudentId() == s.getId()){
+                    System.out.println(s.getName());
+                    break;
+                }
+            }
         }
 
     }
@@ -308,6 +344,26 @@ public class Main {
         printC();
     }
 
+    public static void enrollStudent(){
+        Scanner key = new Scanner(System.in);
+        System.out.println("How many Students would you like to enroll? ");
+        int num = key.nextInt();
+        int count = 0;
+        while(count < num){
+            Enrollments enrollments = new Enrollments();
+            System.out.println("Please enter a new ID for the enrollment: ");
+            enrollments.setId(key.nextLong());
+            System.out.println("Please enter the ID of the student that you wish to enroll: ");
+            enrollments.setStudentId(key.nextLong());
+            System.out.println("Please enter the ID of the class where you wish to enroll the student: ");
+            enrollments.setClassId(key.nextLong());
+            enrollmentList.add(enrollments);
+            System.out.println("Student enrolled!");
+            count++;
+        }
+        System.out.println("enrollments after adding: ");
+        printEnrollment();
+    }
 
 
 
