@@ -51,14 +51,18 @@ public class Main {
         System.out.println(" 1 - Add Student \n 2 - Add Faculty \n 3 - Edit Student \n 4 - Edit Faculty \n 5 - Add Class");
         System.out.println(" 6 - Edit Class \n 7 - Enroll Student \n 8 - Hire a Faculty \n 9 - Viw All Information");
         System.out.println("Enter \"q\" to quit ");
-        key.nextLine();
         int input = key.nextInt();
         if(input == 1){
             addStudent();
         }
+        if(input == 2){
+            addFaculty();
+        }
 
         //Allow user to add a new Student
         //System.out.println("Would you like to add a new student? (Y/N)");
+
+
 
 
     }//end main method
@@ -83,9 +87,40 @@ public class Main {
 
      public static void addStudent(){
         Scanner key = new Scanner(System.in);
+         System.out.println("How many students would you like to add? ");
+         int num = key.nextInt();
+         int count = 0;
+         while(count < num){
+             Student student = new Student();
+             System.out.println("Please enter an ID for the new student: ");
+             student.setId(key.nextLong());
+             key.nextLine();
+             System.out.println("Please enter the name of the new student: ");
+             student.setName(key.nextLine());
+             System.out.println("Please enter the email of the new student: ");
+             student.setEmail(key.nextLine());
+             System.out.println("Please enter a password for the new student: ");
+             student.setPassword(key.nextLine());
+             System.out.println("Student added!");
+             studentList.add(student);
+             count++;
+
+         }
+
 
 
      }
 
 
+
+
 }//end main class
+
+/*
+for(Student s : studentList){
+                s.getId();
+                s.getName();
+                s.getEmail();
+                s.getPassword();
+            }
+ */
