@@ -111,6 +111,15 @@ public class Main {
         if(input == 8){
             hireFaculty();
         }
+        if(input == 9){
+            System.out.println("All Students: ");
+            print();
+            System.out.println("All Faculty: ");
+            printF();
+            System.out.println("All Classes: ");
+            printC();
+
+        }
 
 
 
