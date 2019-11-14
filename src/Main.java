@@ -14,19 +14,19 @@ public class Main {
        Admin adminUser = new Admin(100L, "Marcus", "admin1@email.com", "password");
        adminList.add(adminUser);
 
-       //add some students
+       //add some students to the application
         Student student1 = new Student(200L, "Ivan", "ivan@email.com", "password");
         Student student2 = new Student(201L, "Elise", "elise@email.com", "password");
         Student student3 = new Student(202L, "Daphne", "daphne@email.com", "password");
         Collections.addAll(studentList, student1,student2,student3);
 
-        //add some faculty
+        //add some faculty members to the application
         Faculty faculty1 = new Faculty(300L, "Victor", "victor@email.com", "password");
         Faculty faculty2 = new Faculty(301L, "Sue", "sue@email.com", "password");
-        Faculty faculty3 = new Faculty(302L, "Betty", "betty@emial.com", "password");
+        Faculty faculty3 = new Faculty(302L, "Betty", "betty@email.com", "password");
         Collections.addAll(facultyList, faculty1, faculty2, faculty3);
 
-        //add some classes
+        //add some classes to the application
         Class class1 = new Class(400L, "Java", "Learn core java concepts and how to develop java applications");
         Class class2 = new Class(401L, "HTML/CSS", "Learn how to develop Web applications using HTML and CSS ");
         Class class3 = new Class(402L, "Oracle SQL", "Learn SQL queries, tables and relational databases");
@@ -44,7 +44,7 @@ public class Main {
         studentEnrollment2.setStudentId(201L);
         Collections.addAll(enrollmentList, studentEnrollment1, studentEnrollment2);
 
-        //Add some enrollments (Faculty-Class)
+        //Add some enrollments-hiring (Faculty-Class)
         Enrollments facultyHire1 = new Enrollments();
         facultyHire1.setId(600L);
         facultyHire1.setClassId(400L);
@@ -56,15 +56,6 @@ public class Main {
         facultyHire2.setFacultyId(301L);
         Collections.addAll(facultyHireList, facultyHire1, facultyHire2);
 
-
-        //*******************TEST!!!***8***8
-        System.out.println("BEFORE ADDING ");
-        //print();
-        //printF();
-        //printC();
-        //printEnrollment();
-        printHiring();
-        //****************************************
         Scanner key = new Scanner(System.in);
         System.out.println("Welcome to Montgomery's School System  ");
         System.out.println(); //Just a space
@@ -74,6 +65,7 @@ public class Main {
             System.out.println("Would you like to login as an (A)Admin, (F)Faculty, or (S)Student? ");
             answer = key.nextLine();
             if(answer.equalsIgnoreCase("a")){
+                System.out.println(adminUser.welcomeMessage());
                 logIn();
             }
             else{
@@ -82,10 +74,11 @@ public class Main {
         }
 
         //offer options to the user
-        System.out.println("Options: ");
+        System.out.println();
+        System.out.println("Please choose between the following options: ");
         System.out.println(" 1 - Add Student \n 2 - Add Faculty \n 3 - Edit Student \n 4 - Edit Faculty \n 5 - Add Class");
         System.out.println(" 6 - Edit Class \n 7 - Enroll Student \n 8 - Hire a Faculty \n 9 - Viw All Information");
-        System.out.println("Enter \"q\" to quit ");
+        System.out.println("Enter 10 to quit ");
         int input = key.nextInt();
         if(input == 1){
             addStudent();
@@ -112,66 +105,73 @@ public class Main {
             hireFaculty();
         }
         if(input == 9){
+            System.out.println(); //Just a space
             System.out.println("All Students: ");
-            print();
+            System.out.println(); //Just a space
+            printS();
             System.out.println("All Faculty: ");
+            System.out.println(); //Just a space
             printF();
             System.out.println("All Classes: ");
+            System.out.println(); //Just a space
             printC();
-
+            System.out.println("All Current Student Enrollments: ");
+            System.out.println(); //Just a space
+            printEnrollment();
+            System.out.println("All Current Faculty Hires: ");
+            System.out.println(); //Just a space
+            printHiring();
+        }
+        if(input == 10){
+            System.out.println("Ok, BYE BYE!" );
         }
 
 
-
-
-
-
     }//end main method
-    //***test*****
-    public static void print(){
+
+    public static void printS(){
         for(Student s : studentList){
             System.out.println("Student ID: " + s.getId());
             System.out.println("Student Name: " + s.getName());
             System.out.println("Student Email: " + s.getEmail());
-            System.out.println("Student Password: " + s.getPassword());
+            System.out.println(); //Just a space
         }
-
     }
 
     public static void printF(){
         for(Faculty f: facultyList){
-            System.out.println("f ID: " + f.getId());
-            System.out.println("f Name: " + f.getName());
-            System.out.println("f Email: " + f.getEmail());
-            System.out.println("f Password: " + f.getPassword());
+            System.out.println("Faculty ID: " + f.getId());
+            System.out.println("Faculty Name: " + f.getName());
+            System.out.println("Faculty Email: " + f.getEmail());
+            System.out.println(); //Just a space
         }
 
     }
 
     public static void printC(){
         for(Class c: classList){
-            System.out.println("C ID: " + c.getId());
-            System.out.println("C Name: " + c.getName());
-            System.out.println("C DES: " + c.getDescription());
-
+            System.out.println("Class ID: " + c.getId());
+            System.out.println("Class Name: " + c.getName());
+            System.out.println("Class Description: " + c.getDescription());
+            System.out.println(); //Just a space
         }
-
     }
 
-    public static void printEnrollment(){
+    public static void printEnrollment(){  //Student enrollments
         for(Enrollments en: enrollmentList){
             for(Class c: classList){
                 if(en.getClassId() == c.getId()){
-                    System.out.println(c.getName());
+                    System.out.println("Class Name: " + c.getName());
                     break;
                 }
             }
             for(Student s: studentList){
                 if(en.getStudentId() == s.getId()){
-                    System.out.println(s.getName());
+                    System.out.println("Student Name: " + s.getName());
                     break;
                 }
             }
+            System.out.println(); //Just a space
         }
 
     }
@@ -180,21 +180,20 @@ public class Main {
         for(Enrollments en: facultyHireList){
             for(Class c: classList){
                 if(en.getClassId() == c.getId()){
-                    System.out.println(c.getName());
+                    System.out.println("Class Name: " + c.getName());
                     break;
                 }
             }
             for(Faculty f: facultyList){
                 if(en.getFacultyId() == f.getId()){
-                    System.out.println(f.getName());
+                    System.out.println("Faculty Name: " + f.getName());
                     break;
                 }
             }
-
+            System.out.println(); //Just a space
         }
     }
 
-    //***************
      public static void logIn(){
             Scanner key = new Scanner(System.in);
             System.out.println("Please enter your email: ");
@@ -203,6 +202,8 @@ public class Main {
             String adminPass = key.nextLine();
             for(Admin a : adminList){
                 if(adminEmail.equalsIgnoreCase(a.getEmail()) && adminPass.equalsIgnoreCase(a.getPassword())){
+                    System.out.println(); //Just a space
+                    System.out.println("Welcome " + a.getName() + "!");
                     System.out.println("You logged in! ");
                 }
                 else{
@@ -232,13 +233,11 @@ public class Main {
              System.out.println("Student added!");
              studentList.add(student);
              count++;
-
          }
-
-         //******TEST
-         System.out.println("STUDENTS AFTER ADDING ");
-         print();
-         //***********
+         System.out.println(); //Just a space
+         System.out.println("All Students after new additions: ");
+         System.out.println(); //Just a space
+         printS();
      }
 
     public static void addFaculty(){
@@ -264,7 +263,8 @@ public class Main {
         }
 
         System.out.println();
-        System.out.println("Faculty after adding ");
+        System.out.println("All Faculty after new additions: ");
+        System.out.println(); //Just a space
         printF();
     }
 
@@ -298,8 +298,6 @@ public class Main {
         }
         System.out.println("Student edited! ");
         System.out.println();
-        System.out.println("STUDENTS after editing ");
-        print();
     }
 
     public static void editFaculty(){
@@ -332,8 +330,6 @@ public class Main {
         }
         System.out.println("Faculty edited! ");
         System.out.println();
-        System.out.println("Faculty after editing ");
-        printF();
     }
 
     //Add a class
@@ -351,14 +347,14 @@ public class Main {
             classes.setName(key.nextLine());
             System.out.println("Please enter a short description of the class: ");
             classes.setDescription(key.nextLine());
-            System.out.println("New class added!");
             classList.add(classes);
             count++;
 
         }
-
+        System.out.println("New class added!");
         System.out.println();
-        System.out.println("classes after adding ");
+        System.out.println("All Classes after new additions: ");
+        System.out.println(); //Just a space
         printC();
     }
 
@@ -385,8 +381,6 @@ public class Main {
         }
         System.out.println("Class edited! ");
         System.out.println();
-        System.out.println("Classes after editing ");
-        printC();
     }
 
     public static void enrollStudent(){
@@ -406,7 +400,9 @@ public class Main {
             System.out.println("Student enrolled!");
             count++;
         }
-        System.out.println("enrollments after adding: ");
+        System.out.println(); //space
+        System.out.println("All Current Student Enrollments after new additions: ");
+        System.out.println(); //Just a space
         printEnrollment();
     }
 
@@ -427,20 +423,12 @@ public class Main {
             System.out.println("Faculty hired!");
             count++;
         }
-        System.out.println("hiring list after adding: ");
+        System.out.println(); //Just a space
+        System.out.println("All Current Faculty Hires after additions: ");
+        System.out.println(); //Just a space
         printHiring();
     }
 
 
-
-
 }//end main class
 
-/*
-for(Student s : studentList){
-                s.getId();
-                s.getName();
-                s.getEmail();
-                s.getPassword();
-            }
- */
